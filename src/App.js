@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import Modal from './components/modal';
+import LoginPage from './pages/login-page';
 
 import { Button } from './styles/components';
 
-function App() {
+const App = () => {
   
   const [ showModal, setShowModal ] = useState(false);
 
@@ -13,14 +14,15 @@ function App() {
   }
 
   return (
-      <>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-              <Button onClick={openModal}>Open Modal</Button>
-          </div>
-          <Modal showModal={showModal} setShowModal={setShowModal}>
-            <h1>Hello</h1>
-          </Modal>
-      </>
+    <>
+      <LoginPage />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Button onClick={openModal}>Open Modal</Button>
+      </div>
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <h1 style={{}}>Hello</h1>
+      </Modal>
+    </>
   );
 }
 

@@ -28,7 +28,7 @@ export const ModalContent = styled.div`
     top: 50%;
     transform: translate(-50%, -45%);
     padding: 20px;
-    background: #fff;
+    background: ${props => props.theme.colors.marbleLight};
     width: 50%;
 	height: 40%;
     border-radius: 10px;
@@ -43,4 +43,11 @@ export const CloseModalButton = styled.button`
   height: 32px;
   padding: 0;
   z-index: 10;
+  border: none;
+  border-radius: 5px;
+  background-color: ${props => props.theme.colors.blueDark};
+  color: white;
+  &:hover{
+      background-color: ${props => props.theme.colors.blueLight};
+  }
 `;

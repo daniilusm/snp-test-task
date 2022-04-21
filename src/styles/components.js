@@ -5,8 +5,9 @@ export const Button = styled.button`
     width: 100px;
     border: none;
     border-radius: 10px;
-    background-color: #faebd7;
+    background-color: ${props => props.theme.colors.blueDark};
+	color: white;
 	&:hover{
-		background-color: #f3cb97;
+		background-color: ${props => props.theme.colors.blueLight};
 	}
 `
