@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+
+import { registrUser } from '../../store/actions/user';
 
 import Button from '../../components/button';
 import InputText from '../../components/input-text';
@@ -11,11 +14,13 @@ import Checkbox from '../../components/checkbox';
 import {
 	LoginBox,
 	BoxItem,
-	FormBox,
-	Heading
+	FormBox
 } from './style';
+import { Heading } from '../../styles/GlobalStyles';
 
 export const RegisterPage = () => {
+
+	const dispatch = useDispatch();
 
 	const [value, setCheckbox] = useState(true);
 
@@ -46,7 +51,7 @@ export const RegisterPage = () => {
 	});
 	const onSubmit = (data) => {
 		data.is_admin = value;
-		console.log(data);
+		dispatch(registrUser(data));
 		reset();
 	};
 	

@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-export const Heading = styled.h1`
-  text-align: center;
-  margin-bottom: 30px;
-`;
-
 export const LoginBox = styled.div`
   width: 40%;
   margin: 0 auto;

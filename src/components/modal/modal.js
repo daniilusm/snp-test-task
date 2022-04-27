@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getUser } from '../../store/actions/user';
 
 import Button from '../button';
 
@@ -10,6 +12,8 @@ import {
 
 export const Modal = ({ showModal, setShowModal, children }) => {
 	const modalRef = useRef();
+
+	const dispatch = useDispatch();
 
 	const closeModal = (e) => {
 		if (modalRef.current === e.target) {
@@ -28,6 +32,7 @@ export const Modal = ({ showModal, setShowModal, children }) => {
 
 	useEffect(() => {
 		showModal ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'unset';
+		dispatch(getUser());
 	},[showModal]);
 
 	useEffect(() => {

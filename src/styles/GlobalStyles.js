@@ -16,3 +16,8 @@ export const ListBox = styled.div`
 	flex-direction: column;
 	gap: 20px;
 `;
+
+export const Heading = styled.h1`
+  text-align: center;
+  margin-bottom: 30px;
+`;
