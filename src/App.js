@@ -2,28 +2,38 @@ import React, { useState } from 'react';
 
 import Modal from './components/modal';
 import LoginPage from './pages/login-page';
+import TestsListPage from './pages/tests-list-page';
+import WorkOnTestPage from './pages/work-on-test-page';
 
-import { Button } from './styles/components';
+import Button from './components/button';
+import { QuestionForm } from './components/question-form/question-form';
+import RegisterPage from './pages/register-page';
 
 const App = () => {
-  
-  const [ showModal, setShowModal ] = useState(false);
+	
+	const [showModal, setShowModal] = useState(false);
 
-  const openModal = () => {
-    setShowModal(prev => !prev)
-  }
-
-  return (
-    <>
-      <LoginPage />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <Button onClick={openModal}>Open Modal</Button>
-      </div>
-      <Modal showModal={showModal} setShowModal={setShowModal}>
-        <h1 style={{}}>Hello</h1>
-      </Modal>
-    </>
-  );
-}
+	return (
+		<>
+			<RegisterPage />
+			<LoginPage />
+			<TestsListPage />
+			<WorkOnTestPage />
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: '100vh',
+				}}
+			>
+				<Button styleColor={'primary'} onClick={() => setShowModal((prev) => !prev)}>Open Modal</Button>
+			</div>
+			<Modal showModal={showModal} setShowModal={setShowModal}>
+				<QuestionForm />
+			</Modal>
+		</>
+	);
+};
 
 export default App;

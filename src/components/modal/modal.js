@@ -1,48 +1,54 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 
-import { 
-  Background, 
-  ModalWrapper, 
-  ModalContent, 
-  CloseModalButton 
+import Button from '../button';
+
+import {
+	Background,
+	ModalWrapper,
+	ModalContent
 } from './style';
 
-
 export const Modal = ({ showModal, setShowModal, children }) => {
-  const modalRef = useRef();
+	const modalRef = useRef();
 
-  const closeModal = e => {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    }
-  };
+	const closeModal = (e) => {
+		if (modalRef.current === e.target) {
+			setShowModal(false);
+		}
+	};
 
-  const keyPress = useCallback(
-    e => {
-      if (e.key === 'Escape' && showModal) {
-        setShowModal(false);
-        console.log('I pressed');
-      }
-    },[setShowModal, showModal]);
+	const keyPress = useCallback(
+		(e) => {
+			if (e.key === 'Escape' && showModal) {
+				setShowModal(false);
+			}
+		},
+		[setShowModal, showModal]
+	);
 
-  useEffect(
-    () => {
-      document.addEventListener('keydown', keyPress);
-      return () => document.removeEventListener('keydown', keyPress);
-    },[keyPress]);
+	useEffect(() => {
+		showModal ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'unset';
+	},[showModal]);
 
-  return (
-    <>
-      {showModal ? (
-        <Background onClick={closeModal} ref={modalRef}>
-            <ModalWrapper showModal={showModal}>
-              <ModalContent>
-					      {children}
-					      <CloseModalButton aria-label='Close modal' onClick={() => setShowModal(prev => !prev)}>x</CloseModalButton>
-              </ModalContent>
-            </ModalWrapper>
-        </Background>
-      ) : null}
-    </>
-  );
+	useEffect(() => {
+		document.addEventListener('keydown', keyPress);
+		return () => document.removeEventListener('keydown', keyPress);
+	}, [keyPress]);
+
+	return (
+		<>
+			{showModal ? (
+				<Background onClick={closeModal}>
+					<ModalWrapper showModal={showModal} ref={modalRef}>
+						<ModalContent>
+							{children}
+							<div>
+								<Button styleColor={'primary'} onClick={() => setShowModal((prev) => !prev)}>x</Button>
+							</div>
+						</ModalContent>
+					</ModalWrapper>
+				</Background>
+			) : null}
+		</>
+	);
 };
