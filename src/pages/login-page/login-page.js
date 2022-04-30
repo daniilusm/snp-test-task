@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -8,7 +9,7 @@ import Button from '../../components/button';
 import InputText from '../../components/input-text';
 import ErrorMessage from '../../components/error-message';
 
-import { autorizUser } from '../../store/actions/user';
+import { autorizUser, getUser } from '../../store/actions/user';
 
 import {
 	LoginBox,
@@ -20,6 +21,14 @@ import { ButtonBox, Heading } from '../../styles/GlobalStyles';
 export const LoginPage = () => {
 
 	const dispatch = useDispatch();
+
+	const user = useSelector((state) => state.user.user);
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		console.log('user is ', user);
+	},[user]);
 
 	const schema = yup
 		.object({
@@ -40,8 +49,15 @@ export const LoginPage = () => {
 		resolver: yupResolver(schema),
 		mode: 'onChange',
 	});
+
+	const goToTestsList = useCallback(() => navigate('/tests'));
+
 	const onSubmit = (data) => {
 		dispatch(autorizUser(data));
+		setTimeout(() => {
+			dispatch(getUser());
+			goToTestsList();
+		},1000);
 	};
 
 	return (
@@ -58,7 +74,9 @@ export const LoginPage = () => {
 				</BoxItem>
 				<ButtonBox>
 					<Button styleColor={'primary'} type={'submit'}>Enter</Button>
-					<Button styleColor={'primary'}>Registration</Button>
+					<Link to={'/registation'}>
+						<Button styleColor={'primary'}>Registration</Button>
+					</Link>
 				</ButtonBox>
 			</FormBox>
 		</LoginBox>

@@ -30,6 +30,6 @@ export const ModalContent = styled.div`
   padding: 20px;
   background: ${props => props.theme.colors.marbleLight};
   width: 50%;
-  height: 40%;
+  height: 50%;
   border-radius: 10px;
 `;

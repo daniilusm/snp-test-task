@@ -1,35 +1,29 @@
-import React, { useState } from 'react';
-
-import LoginPage from './pages/login-page';
-import RegisterPage from './pages/register-page';
-// import TestsListPage from './pages/tests-list-page';
-// import WorkOnTestPage from './pages/work-on-test-page';
-
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from './components/button';
-import Modal from './components/modal';
-import QuestionForm from './components/question-form/';
+
+import { Routers } from './pages/Routes';
+import { ButtonBox, NavMenu } from './styles/GlobalStyles';
 
 const App = () => {
-	
-	const [showModal, setShowModal] = useState(false);
+
+	const user = useSelector(state => state.user.user);
 
 	return (
 		<>
-			<RegisterPage />
-			<LoginPage />
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					height: '100vh',
-				}}
-			>
-				<Button styleColor={'primary'} onClick={() => setShowModal((prev) => !prev)}>Open Modal</Button>
-			</div>
-			<Modal showModal={showModal} setShowModal={setShowModal}>
-				<QuestionForm />
-			</Modal>
+			<NavMenu>
+				<h1>{user.username}</h1>
+				<ButtonBox>
+					<Link to={'/login'}>
+						<Button styleColor={'primary'}>Login</Button>
+					</Link>
+					<Link to={'/registration'}>
+						<Button styleColor={'primary'}>Registration</Button>
+					</Link>
+				</ButtonBox>
+			</NavMenu>
+			<Routers />
 		</>
 	);
 };

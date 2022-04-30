@@ -57,7 +57,7 @@ export function* logoutSaga() {
 	yield takeEvery(LOGOUT_USER, logoutUser);
 }
 
-export default function* rootSaga() {
+export default function* rootResitrSaga() {
 	yield spawn(registrationSaga);
 	yield spawn(authorizationSaga);
 	yield spawn(getUserSaga);

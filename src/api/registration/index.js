@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { URL, scopeKey } from '../index';
+import { URL, getAuthUser } from '../index';
+
+axios.defaults.headers = {
+	'scope-key': '#E$#F6VUrqVw8SeE'
+};
 
 export const userRegistration = (user) => {
 	axios
-		.post(`${URL}/signup`, user, {
-			headers: {
-				'scope-key': `${scopeKey}`,
-			},
-		})
+		.post(`${URL}/signup`, user)
 		.then((response) => {
 			console.log(response.data.username, ' successfully registered!');
 		})
@@ -18,29 +18,27 @@ export const userRegistration = (user) => {
 
 export const userAuthorization = (user) => {
 	axios
-		.post(`${URL}/signin`, user, {
-			headers: {
-				'scope-key': `${scopeKey}`,
-			},
-		})
+		.post(`${URL}/signin`, user)
 		.then((response) => {
 			console.log(response.data.username, ' successfully authorized!');
+			console.log('Autorized token is ', response.data.auth_token);
+			localStorage.setItem('auth_user', JSON.stringify(response.data));
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
 
-export const fetchUser = () => {
-	axios
+export const fetchUser = async () => {
+	return axios
 		.get(`${URL}/users/current`, {
-			headers: {
-				'scope-key': `${scopeKey}`,
-			},
+			headers:{
+				Token: `${getAuthUser()}`
+			}
 		})
 		.then((response) => {
-			console.log('getUser',response);
-			return response;
+			console.log('getUser',response.data);
+			return response.data;
 		})
 		.catch((error) => {
 			console.log(error);
@@ -49,13 +47,10 @@ export const fetchUser = () => {
 
 export const userLogout = () => {
 	axios
-		.delete(`${URL}/logout`, {
-			headers: {
-				'scope-key': `${scopeKey}`,
-			},
-		})
+		.delete(`${URL}/logout`)
 		.then((response) => {
 			console.log(response);
+			localStorage.removeItem('auth_user');
 		})
 		.catch((error) => {
 			console.log(error);

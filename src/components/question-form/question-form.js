@@ -5,7 +5,7 @@ import Button from '../button';
 import { QuestionFormBox } from './style';
 import Checkbox from '../checkbox';
 
-export const QuestionForm = () => {
+export const QuestionForm = ({ setShowModal }) => {
 
 	const [value, setCheckbox] = useState(true);
 
@@ -43,7 +43,7 @@ export const QuestionForm = () => {
 			</div>
 			<ButtonBox>
 				<Button styleColor={'primary'}>save</Button>
-				<Button>cancel</Button>
+				<Button onClick={() => setShowModal(false)}>cancel</Button>
 			</ButtonBox>
 		</QuestionFormBox>
 	);

@@ -21,3 +21,13 @@ export const Heading = styled.h1`
   text-align: center;
   margin-bottom: 30px;
 `;
+
+export const NavMenu = styled.nav`
+	margin-bottom: 50px;
+	background: ${props => props.theme.colors.marbleLight};
+	height: 40px;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+
+`;

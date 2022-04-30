@@ -10,7 +10,6 @@ height: 30px;
 min-width: 150px;
 width: 98%;
 padding: 0 10px;
-border: none;
 border-radius: 5px;
 outline: none;
 `;

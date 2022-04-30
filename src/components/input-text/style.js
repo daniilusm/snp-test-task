@@ -13,7 +13,6 @@ export const Input = styled.input`
 	min-width: 150px;
 	width: 300px;
 	padding: 0 10px;
-	border: none;
 	border-radius: 5px;
 	outline: none;
 `;
