@@ -70,7 +70,7 @@ export const LoginPage = () => {
 				</BoxItem>
 				<ButtonBox>
 					<Button styleColor={'primary'} type={'submit'}>Enter</Button>
-					<Link to={'/registation'}>
+					<Link to={'/registration'}>
 						<Button styleColor={'primary'}>Registration</Button>
 					</Link>
 				</ButtonBox>

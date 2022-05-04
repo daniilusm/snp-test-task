@@ -6,7 +6,9 @@ import {
 	POST_TEST,
 	SEND_TEST,
 	DELETE_TEST,
-	DELETE_TEST_BY_ID
+	DELETE_TEST_BY_ID,
+	EDIT_TEST,
+	EDIT_TEST_BY_ID,
 } from './types';
 
 export function getTests() {
@@ -61,5 +63,19 @@ export function deleteTestById(id) {
 	return {
 		type: DELETE_TEST_BY_ID,
 		id,
+	};
+}
+
+export function editTest(data) {
+	return {
+		type: EDIT_TEST,
+		data,
+	};
+}
+
+export function editTestById(data) {
+	return {
+		type: EDIT_TEST_BY_ID,
+		data,
 	};
 }

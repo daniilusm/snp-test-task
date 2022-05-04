@@ -32,16 +32,16 @@ export const fetchTestById = async (id) => {
 		});
 };
 
-
-export const editTest = async (id) => {
-	return axios
-		.patch(`${URL}/tests/${id}`, {
+export const editTest = async (data) => {
+	axios
+		.patch(`${URL}/tests/${data.id}`, data, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
 		})
 		.then((response) => {
-			return response.data;
+			console.log(response.data, ' successfully edit!');
+			// return response.data;
 		})
 		.catch((error) => {
 			console.log(error);

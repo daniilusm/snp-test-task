@@ -9,3 +9,6 @@ export const SEND_TEST = 'SEND_TEST';
 
 export const DELETE_TEST = 'DELETE_TEST';
 export const DELETE_TEST_BY_ID = 'DELETE_TEST_BY_ID';
+
+export const EDIT_TEST = 'EDIT_TEST';
+export const EDIT_TEST_BY_ID = 'EDIT_TEST_BY_ID';
