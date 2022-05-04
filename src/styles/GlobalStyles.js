@@ -14,7 +14,7 @@ export const ButtonBox = styled.div`
 export const ListBox = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 `;
 
 export const Heading = styled.h1`

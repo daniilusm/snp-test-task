@@ -1,20 +1,65 @@
 import { takeEvery, put, call, spawn } from 'redux-saga/effects';
 
-import { GET_TESTS } from '../../actions/tests/types';
+import { 
+	GET_TESTS,
+	POST_TEST,
+	DELETE_TEST,
+	GET_TEST
+} from '../../actions/tests/types';
 
-import { fetchTests } from '../../../api/tests';
+import {
+	deleteTest,
+	fetchTestById,
+	fetchTests,
+	sendTest
+} from '../../../api/tests';
 
-import { setTests } from '../../actions/tests';
+import { 
+	setTests,
+	addTest,
+	deleteTestById,
+	setTest
+} from '../../actions/tests';
 
 export function* getTests() {
 	const data = yield call(fetchTests, null);
 	yield put(setTests(data));
 }
 
+export function* getTest(data) {
+	const result = yield call(fetchTestById, data.id);
+	yield put(setTest(result));
+}
+
+export function* postTest(data) {
+	const result = yield call(sendTest, data.title);
+	yield put(addTest(result));
+}
+
+export function* removeTest(data) {
+	yield call(deleteTest, data.id);
+	yield put(deleteTestById(data.id));
+}
+
 export function* getTestsSaga(){
 	yield takeEvery(GET_TESTS, getTests);	
 }
 
+export function* getTestSaga(){
+	yield takeEvery(GET_TEST, getTest);	
+}
+
+export function* postTestSaga(){
+	yield takeEvery(POST_TEST, postTest);	
+}
+
+export function* deleteTestsSaga(){
+	yield takeEvery(DELETE_TEST, removeTest);	
+}
+
 export default function* rootTestsSaga(){
+	yield spawn(postTestSaga);
 	yield spawn(getTestsSaga);
+	yield spawn(getTestSaga);
+	yield spawn(deleteTestsSaga);
 }

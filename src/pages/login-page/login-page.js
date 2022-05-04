@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -22,21 +22,17 @@ export const LoginPage = () => {
 
 	const dispatch = useDispatch();
 
-	const user = useSelector((state) => state.user.user);
-
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		console.log('user is ', user);
-	},[user]);
 
 	const schema = yup
 		.object({
 			password: yup
 				.string()
+				.min(4, 'Password must be more than 4 characters')
 				.required('Password is a required field'),
 			username: yup
 				.string()
+				.min(4, 'Password must be more than 4 characters')
 				.required('User name is a required field'),
 		})
 		.required();

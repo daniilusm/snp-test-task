@@ -8,18 +8,16 @@ export const Checkbox = ({
 	onChange,
 	name,
 	id,
-	label,
-	disabled
+	label
 }) => {
 	return (
-		<Label htmlFor={id} disabled={disabled}>
+		<Label htmlFor={id} >
 			{label}
 			<Input
 				id={id}
 				type="checkbox"
 				name={name}
 				value={value}
-				disabled={disabled}
 				checked={checked}
 				onChange={onChange}
 			/>

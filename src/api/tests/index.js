@@ -7,14 +7,73 @@ export const fetchTests = async () => {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
+		})
+		.then((response) => {
+			console.log(response.data.tests);
+			return response.data.tests;
+		})
+		.catch((error) => {
+			console.log(error);
 		});
 };
 
-export const postNewTest = (title) => {
-	axios
-		.post(`${URL}/tests`, title)
+export const fetchTestById = async (id) => {
+	return axios
+		.get(`${URL}/tests/${id}`, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
+		.then((response) => {
+			return response.data;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+
+export const editTest = async (id) => {
+	return axios
+		.patch(`${URL}/tests/${id}`, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
+		.then((response) => {
+			return response.data;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const sendTest = async (title) => {
+	return axios
+		.post(`${URL}/tests`, {title: title}, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
 		.then((response) => {
 			console.log(response.data, ' successfully create!');
+			return response.data;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+
+export const deleteTest = (id) => {
+	axios
+		.delete(`${URL}/tests/${id}`, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
+		.then((response) => {
+			console.log('delete ',response);
 		})
 		.catch((error) => {
 			console.log(error);

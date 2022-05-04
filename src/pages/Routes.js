@@ -12,8 +12,8 @@ export const Routers = () => {
 		<Routes>
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="/registration" element={<RegisterPage />} />
-			<Route path="/test/edit" element={<WorkOnTestPage />} />
-			<Route path="/tests" element={<TestsListPage />} />
+			<Route path="/test/:id/edit" element={<WorkOnTestPage />} />
+			<Route path="/" element={<TestsListPage />} />
 		</Routes>
 	);
 };

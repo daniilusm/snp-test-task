@@ -14,14 +14,20 @@ const App = () => {
 		<>
 			<NavMenu>
 				<h1>{user.username}</h1>
-				<ButtonBox>
+				{user ? (
 					<Link to={'/login'}>
-						<Button styleColor={'primary'}>Login</Button>
+						<Button>Logout</Button>
 					</Link>
-					<Link to={'/registration'}>
-						<Button styleColor={'primary'}>Registration</Button>
-					</Link>
-				</ButtonBox>
+				): (
+					<ButtonBox>
+						<Link to={'/login'}>
+							<Button styleColor={'primary'}>Login</Button>
+						</Link>
+						<Link to={'/registration'}>
+							<Button styleColor={'primary'}>Registration</Button>
+						</Link>
+					</ButtonBox>
+				)}
 			</NavMenu>
 			<Routers />
 		</>

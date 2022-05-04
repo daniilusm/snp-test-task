@@ -37,7 +37,6 @@ export const fetchUser = async () => {
 			}
 		})
 		.then((response) => {
-			console.log('getUser',response.data);
 			return response.data;
 		})
 		.catch((error) => {

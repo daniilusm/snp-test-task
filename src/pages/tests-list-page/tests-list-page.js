@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { GET_TESTS } from '../../store/actions/tests/types';
+import { postTest } from '../../store/actions/tests';
 
 import SearchInput from '../../components/search-input';
 import Button from '../../components/button';
@@ -18,25 +19,23 @@ export const TestsListPage = () => {
 	useEffect(() => {
 		dispatch({ type: GET_TESTS });
 	}, []);
-	
-	useEffect(() => {
-		console.log('tests is ', tests);
-	}, [tests]);
+
+	const createTest = () => {
+		dispatch(postTest('New test'));
+	};
 
 	return (
 		<Container>
 			<h1>Tests Page</h1>
 			<SearchInput label={'Search test'} type={'text'} />
 			<ListBox>
-				<a href='#'>Test 1</a>
-				<a href='#'>Test 1</a>
-				<a href='#'>Test 1</a>
-				<a href='#'>Test 1</a>
-				<a href='#'>Test 1</a>
+				{tests.length > 0 ? tests.map(test => (
+					<Link to={`/test/${test.id}/edit`} key={test.id}>
+						<p >{test.title}</p>
+					</Link>
+				)) : <h3>Tests not found</h3>}
 			</ListBox>
-			<Link to={'/test/edit'}>
-				<Button styleColor={'primary'}>Create new test</Button>
-			</Link>
+			<Button onClick={createTest} styleColor={'primary'}>Create new test</Button>
 		</Container>
 	);
 };

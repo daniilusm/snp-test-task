@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginBox = styled.div`
   width: 40%;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-bottom: 100px;
   padding: 50px 0;
   background-color: ${props => props.theme.colors.marbleLight};
   border-radius: 10px;
