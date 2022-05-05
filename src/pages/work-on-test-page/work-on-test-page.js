@@ -30,6 +30,7 @@ export const WorkOnTestPage = () => {
 
 	useEffect(() => {
 		dispatch(getTest(id));
+		console.log('get test by id ',test);
 	},[]);
 
 	const test = useSelector((state) => state.tests.test);
@@ -40,7 +41,6 @@ export const WorkOnTestPage = () => {
 
 	useEffect(() => {
 		dispatch(getTest(id));
-		console.log('test', test, 'questions', questions);
 	},[questions]);
 
 	const { register, handleSubmit } = useForm();
@@ -66,8 +66,9 @@ export const WorkOnTestPage = () => {
 		goToTestsList();
 	};
 
-	const removeQuestion = (id) => {
-		dispatch(deleteQuestion(id));
+	const removeQuestion = (questId) => {
+		dispatch(deleteQuestion(questId));
+		dispatch(getTest(id));
 	};
 
 	return (
@@ -82,7 +83,7 @@ export const WorkOnTestPage = () => {
 								removeQuestion={removeQuestion} 
 								data={quest} key={quest.id} 
 							/>
-						)) : <h1>not questions</h1>}
+						)) : <h1>Not found questions</h1>}
 					</ListBox>
 					<div style={{
 						display: 'flex',

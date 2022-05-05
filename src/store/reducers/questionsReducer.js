@@ -6,7 +6,8 @@ import {
 	SET_ANSWER,
 	EDIT_ANSWER_BY_ID,
 	DELETE_ANSWER_BY_ID,
-	MOVING_ANSWER_BY_ID
+	MOVING_ANSWER_BY_ID,
+	CLEAR_ANSWERS
 } from '../actions/questions/types';
 
 const initialState = {
@@ -33,6 +34,8 @@ export function questions(state = initialState, action) {
 		return { ...state, answers: state.answers.filter(item => item.id !== action.id) };
 	case MOVING_ANSWER_BY_ID:
 		return { ...state, answers: state.answers.filter(item => item.id !== action.id) };
+	case CLEAR_ANSWERS:
+		return { ...state, answers:  [] };
 
 	default:
 		return state;

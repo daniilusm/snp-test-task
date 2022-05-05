@@ -19,7 +19,7 @@ export const ListBox = styled.div`
 `;
 
 export const Heading = styled.h1`
-//   text-align: center;
+  text-align: center;
   margin-bottom: 30px;
 `;
 

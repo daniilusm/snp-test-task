@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,10 +10,21 @@ import Button from '../button';
 import Checkbox from '../checkbox';
 import ErrorMessage from '../error-message';
 
-import { createAnswer, editQuestion, deleteAnswer, editAnswer } from '../../store/actions/questions';
+import { 
+	createAnswer, 
+	editQuestion, 
+	deleteAnswer, 
+	editAnswer, 
+	clearAnswers
+} from '../../store/actions/questions';
 
+import { 
+	QuestionFormBox, 
+	AnswerItem, 
+	AnswerInput, 
+	AnswersBlock 
+} from './style';
 import { ButtonBox, ListBox } from '../../styles/GlobalStyles';
-import { QuestionFormBox, AnswerItem, AnswerInput, AnswersBlock } from './style';
 
 export const QuestionForm = ({ setShowModal, questionType }) => {
 
@@ -24,6 +35,10 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 	const answers = useSelector((state) => state.questions.answers);
 
 	const question = useSelector((state) => state.questions.question);
+
+	useEffect(() => {
+		console.log('question is ',question);
+	},[question]);
 
 	const schema = yup
 		.object({
@@ -77,6 +92,7 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 		data.answer = answers.length;
 		console.log('onSubmit', data, ' in quest ', question);
 		dispatch(editQuestion(data, question.id));
+		dispatch(clearAnswers());
 		setShowModal(false);
 	};
 
@@ -129,7 +145,7 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 							/>
 							<Button type='button' onClick={() => removeAnswer(answer.id)}>x</Button>
 						</AnswerItem>
-					)) : <h3>not answers</h3>}
+					)) : <h3>Answers not found</h3>}
 				</ListBox>
 			</AnswersBlock>
 			<ButtonBox>

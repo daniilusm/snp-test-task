@@ -12,7 +12,8 @@ import {
 	DELETE_ANSWER,
 	DELETE_ANSWER_BY_ID,
 	MOVING_ANSWER,
-	MOVING_ANSWER_BY_ID
+	MOVING_ANSWER_BY_ID,
+	CLEAR_ANSWERS
 } from './types';
 
 export function createQuestion(data, id) {
@@ -116,5 +117,11 @@ export function movingAnswerById(data) {
 	return {
 		type: MOVING_ANSWER_BY_ID,
 		data,
+	};
+}
+
+export function clearAnswers() {
+	return {
+		type: CLEAR_ANSWERS,
 	};
 }

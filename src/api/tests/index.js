@@ -9,7 +9,7 @@ export const fetchTests = async () => {
 			}
 		})
 		.then((response) => {
-			console.log(response.data.tests);
+			console.log('fetched all tests ', response.data.tests);
 			return response.data.tests;
 		})
 		.catch((error) => {

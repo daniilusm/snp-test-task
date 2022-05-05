@@ -25,7 +25,7 @@ export const QuestionItem = ({ data, removeQuestion }) => {
 				<h1>{data.answer}</h1>
 				<ul >
 					{data.answers.map((answ, index) =>(
-						<li key={index}>{answ.text}</li>
+						<li key={index}>{answ.text} - {answ.is_right.toString()}</li>
 					))}
 				</ul>
 			</Modal>
