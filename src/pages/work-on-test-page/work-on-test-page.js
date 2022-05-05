@@ -13,7 +13,7 @@ import InputText from '../../components/input-text';
 import { deleteTest, getTest, editTest } from '../../store/actions/tests';
 import { createQuestion, deleteQuestion } from '../../store/actions/questions';
 
-import { Container, ButtonBox, ListBox, Heading } from '../../styles/GlobalStyles';
+import { Container, ButtonBox, ListBox, Heading, ConfirmBox } from '../../styles/GlobalStyles';
 import { EditTestForm } from './style';
 
 export const WorkOnTestPage = () => {
@@ -25,6 +25,8 @@ export const WorkOnTestPage = () => {
 	const { id } = useParams();
 
 	const [openModal, setOpenModal] = useState(false);
+
+	const [openModalСonfirm, setOpenModalСonfirm] = useState(false);
 
 	const [questionType, setQuestionType] = useState('single');
 
@@ -95,11 +97,20 @@ export const WorkOnTestPage = () => {
 					</div>
 					<ButtonBox>
 						<Button styleColor={'primary'} type={'submit'}>Save</Button>
-						<Button onClick={() => removeTest(id)}>Delete</Button>
+						<Button type='button' onClick={() => setOpenModalСonfirm((prev) => !prev)}>Delete</Button>
 					</ButtonBox>
 				</EditTestForm>
 				<Modal showModal={openModal} setShowModal={setOpenModal}>
 					<QuestionForm questionType={questionType} setShowModal={setOpenModal}/>
+				</Modal>
+				<Modal showModal={openModalСonfirm} setShowModal={setOpenModalСonfirm}>
+					<ConfirmBox>
+						<Heading>Delete test?</Heading>
+						<ButtonBox>
+							<Button type='button' onClick={() => removeTest(id)}>yes</Button>
+							<Button type='button' onClick={() => setOpenModalСonfirm((prev) => !prev)}>no</Button>
+						</ButtonBox>
+					</ConfirmBox>
 				</Modal>
 			</Container>
 		</>

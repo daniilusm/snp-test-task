@@ -8,7 +8,7 @@ import { postTest } from '../../store/actions/tests';
 import SearchInput from '../../components/search-input';
 import Button from '../../components/button';
 
-import { Container, Heading, ListBox, SubHeading } from '../../styles/GlobalStyles';
+import { Container, EdgesBox, Heading, ListBox, SubHeading } from '../../styles/GlobalStyles';
 
 export const TestsListPage = () => {
 
@@ -34,9 +34,12 @@ export const TestsListPage = () => {
 			<SearchInput label={'Search test'} type={'text'} />
 			<ListBox>
 				{tests.length > 0 ? tests.map(test => (
-					<Link to={`/test/${test.id}/edit`} key={test.id}>
+					<EdgesBox key={test.id}>
 						<SubHeading>{test.title}</SubHeading>
-					</Link>
+						<Link to={`/test/${test.id}/edit`}>
+							<Button styleColor={'primary'}>edit</Button>
+						</Link>
+					</EdgesBox>
 				)) : <SubHeading>Tests not found</SubHeading>}
 			</ListBox>
 			<Button onClick={createTest} styleColor={'primary'}>Create new test</Button>

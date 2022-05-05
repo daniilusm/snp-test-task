@@ -38,3 +38,16 @@ export const NavMenu = styled.nav`
     display: flex;
     justify-content: space-between;
 `;
+
+export const EdgesBox = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const ConfirmBox = styled.div`
+	width: 97%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+`;
