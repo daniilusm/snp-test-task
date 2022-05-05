@@ -11,7 +11,7 @@ import {
 	// postRegistrUser,
 	// postAutorizUser,
 	setUser,
-	// deleteUser
+	deleteUser
 } from '../../actions/user';
 
 import {
@@ -38,7 +38,7 @@ export function* getCurrentUser() {
 
 export function* logoutUser() {
 	yield call(userLogout, null);
-	// yield put(deleteUser(data));
+	yield put(deleteUser(''));
 }
 
 export function* registrationSaga() {

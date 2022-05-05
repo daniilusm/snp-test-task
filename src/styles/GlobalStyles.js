@@ -12,14 +12,22 @@ export const ButtonBox = styled.div`
 `;
 
 export const ListBox = styled.div`
+	margin: 20px 0px;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 20px;
 `;
 
 export const Heading = styled.h1`
-  text-align: center;
+//   text-align: center;
   margin-bottom: 30px;
+`;
+
+export const SubHeading = styled.h2`
+	color: black;
+	&:hover {
+	  color: grey;
+	}
 `;
 
 export const NavMenu = styled.nav`
@@ -29,5 +37,4 @@ export const NavMenu = styled.nav`
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
-
 `;

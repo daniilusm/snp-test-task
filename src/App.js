@@ -1,32 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { logoutUser } from './store/actions/user';
+import { GET_USER } from './store/actions/user/types';
+
 import Button from './components/button';
 
 import { Routers } from './pages/Routes';
-import { ButtonBox, NavMenu } from './styles/GlobalStyles';
+
+import { NavMenu } from './styles/GlobalStyles';
 
 const App = () => {
 
+	const dispatch = useDispatch();
+
+	const navigate = useNavigate();
+
 	const user = useSelector(state => state.user.user);
+
+	useEffect(() => {
+		dispatch({ type: GET_USER });
+	},[]);
+
+	const goToLoginPage = useCallback(() => navigate('/login'));
+
+	const logout = () => {
+		dispatch(logoutUser());
+		goToLoginPage();
+		console.log('goodbay');
+	};
 
 	return (
 		<>
 			<NavMenu>
 				<h1>{user.username}</h1>
 				{user ? (
-					<Link to={'/login'}>
-						<Button>Logout</Button>
-					</Link>
+					<Button onClick={() => logout()}>Logout</Button>
 				): (
-					<ButtonBox>
-						<Link to={'/login'}>
-							<Button styleColor={'primary'}>Login</Button>
-						</Link>
-						<Link to={'/registration'}>
-							<Button styleColor={'primary'}>Registration</Button>
-						</Link>
-					</ButtonBox>
+					<Link to={'/registration'}>
+						<Button styleColor={'primary'}>Registration</Button>
+					</Link>
 				)}
 			</NavMenu>
 			<Routers />

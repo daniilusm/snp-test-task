@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { URL, getAuthUser } from '../index';
 
-export const sendQuestion = async (data) => {
-	return axios
-		.post(`${URL}/tests/${data.id}/questions`, data.data, {
+export const sendQuestion = async ({ data, id }) => {
+	return await axios
+		.post(`${URL}/tests/${id}/questions`, data, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
@@ -17,24 +17,25 @@ export const sendQuestion = async (data) => {
 		});
 };
 
-export const editQuestion = async (data) => {
-	axios
-		.patch(`${URL}/questions/${data.id}`, data, {
+export const editQuestion = async ({ data, id }) => {
+	return await axios
+		.patch(`${URL}/questions/${id}`, data, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
 		})
 		.then((response) => {
-			console.log(response.data);
+			console.log('editQuestion ', response.data);
+			return response.data;
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
 
-export const deleteQuestion = (data) => {
+export const deleteQuestion = (id) => {
 	axios
-		.delete(`${URL}/questions/${data.id}`, {
+		.delete(`${URL}/questions/${id}`, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
@@ -47,9 +48,9 @@ export const deleteQuestion = (data) => {
 		});
 };
 
-export const sendAnswer = async (data) => {
+export const sendAnswer = async ({ quest_id, answer }) => {
 	return axios
-		.post(`${URL}/questions/${data.id}/answers`, data, {
+		.post(`${URL}/questions/${quest_id}/answers`, answer, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
@@ -63,30 +64,31 @@ export const sendAnswer = async (data) => {
 		});
 };
 
-export const editAnswer = async (data) => {
-	axios
-		.patch(`${URL}/answers/${data.id}`, data, {
+export const editAnswer = async ({answerId, data}) => {
+	return await axios
+		.patch(`${URL}/answers/${answerId}`, data, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
 		})
 		.then((response) => {
 			console.log(response.data, ' successfully edit!');
+			return response.data;
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
 
-export const deleteAnswer = (data) => {
+export const deleteAnswer = (id) => {
 	axios
-		.delete(`${URL}/answers/${data.id}`, {
+		.delete(`${URL}/answers/${id}`, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
 		})
 		.then((response) => {
-			console.log('delete ',response);
+			console.log('delete answer ',response);
 		})
 		.catch((error) => {
 			console.log(error);

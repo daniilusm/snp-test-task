@@ -32,31 +32,34 @@ export function setQuestion(data) {
 	};
 }
 
-export function editQuestion(id) {
+export function editQuestion(data, id) {
 	return {
 		type: EDIT_QUESTION,
+		data: {
+			data,
+			id
+		}
+	};
+}
+
+export function editQuestionById(quest) {
+	return {
+		type: EDIT_QUESTION_BY_ID,
+		quest,
+	};
+}
+
+export function deleteQuestion(id) {
+	return {
+		type: DELETE_QUESTION,
 		id
 	};
 }
 
-export function editQuestionById(data) {
-	return {
-		type: EDIT_QUESTION_BY_ID,
-		data,
-	};
-}
-
-export function deleteQuestion(title) {
-	return {
-		type: DELETE_QUESTION,
-		title
-	};
-}
-
-export function deleteQuestionById(data) {
+export function deleteQuestionById(id) {
 	return {
 		type: DELETE_QUESTION_BY_ID,
-		data,
+		id,
 	};
 }
 
@@ -74,31 +77,31 @@ export function setAnswer(data) {
 	};
 }
 
-export function editAnswer(id) {
+export function editAnswer(data) {
 	return {
 		type: EDIT_ANSWER,
-		id
+		data
 	};
 }
 
 export function editAnswernById(data) {
 	return {
 		type: EDIT_ANSWER_BY_ID,
-		data,
+		data
 	};
 }
 
-export function deleteAnswer(title) {
+export function deleteAnswer(id) {
 	return {
 		type: DELETE_ANSWER,
-		title
+		id
 	};
 }
 
-export function deleteAnswerById(data) {
+export function deleteAnswerById(id) {
 	return {
 		type: DELETE_ANSWER_BY_ID,
-		data,
+		id,
 	};
 }
 

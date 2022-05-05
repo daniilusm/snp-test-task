@@ -8,7 +8,7 @@ import { postTest } from '../../store/actions/tests';
 import SearchInput from '../../components/search-input';
 import Button from '../../components/button';
 
-import { Container, ListBox } from '../../styles/GlobalStyles';
+import { Container, Heading, ListBox, SubHeading } from '../../styles/GlobalStyles';
 
 export const TestsListPage = () => {
 
@@ -20,24 +20,20 @@ export const TestsListPage = () => {
 		dispatch({ type: GET_TESTS });
 	}, []);
 
-	useEffect(() => {
-		console.log('tests is ', tests);
-	}, [tests]);
-
 	const createTest = () => {
 		dispatch(postTest('New test'));
 	};
 
 	return (
 		<Container>
-			<h1>Tests Page</h1>
+			<Heading>Tests Page</Heading>
 			<SearchInput label={'Search test'} type={'text'} />
 			<ListBox>
 				{tests.length > 0 ? tests.map(test => (
 					<Link to={`/test/${test.id}/edit`} key={test.id}>
-						<p >{test.title}</p>
+						<SubHeading>{test.title}</SubHeading>
 					</Link>
-				)) : <h3>Tests not found</h3>}
+				)) : <SubHeading>Tests not found</SubHeading>}
 			</ListBox>
 			<Button onClick={createTest} styleColor={'primary'}>Create new test</Button>
 		</Container>

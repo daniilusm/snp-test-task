@@ -9,6 +9,15 @@ export const QuestionFormBox = styled.form`
 
 export const AnswerItem = styled.div`
 	display: flex;
-	align-items: center;
-	gap: 20px;
+    justify-content: space-between;
+    padding-left: 20px;
+`;
+
+export const AnswerInput = styled.div`
+	display: flex;
+    flex-direction: column;
+`;
+
+export const AnswersBlock = styled.div`
+	margin: 20px;
 `;

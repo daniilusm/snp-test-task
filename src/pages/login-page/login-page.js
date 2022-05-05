@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -46,7 +46,7 @@ export const LoginPage = () => {
 		mode: 'onChange',
 	});
 
-	const goToTestsList = useCallback(() => navigate('/tests'));
+	const goToTestsList = useCallback(() => navigate('/'));
 
 	const onSubmit = (data) => {
 		dispatch(autorizUser(data));
@@ -70,9 +70,6 @@ export const LoginPage = () => {
 				</BoxItem>
 				<ButtonBox>
 					<Button styleColor={'primary'} type={'submit'}>Enter</Button>
-					<Link to={'/registration'}>
-						<Button styleColor={'primary'}>Registration</Button>
-					</Link>
 				</ButtonBox>
 			</FormBox>
 		</LoginBox>

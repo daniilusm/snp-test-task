@@ -7,7 +7,7 @@ import Modal from '../modal';
 import { QuestionBox, QuestionName } from './style';
 import { ButtonBox } from '../../styles/GlobalStyles';
 
-export const QuestionItem = ({ data }) => {
+export const QuestionItem = ({ data, removeQuestion }) => {
 
 	const [openModal, setOpenModal] = useState(false);
 
@@ -16,8 +16,8 @@ export const QuestionItem = ({ data }) => {
 			<QuestionBox>
 				<QuestionName>{data.title}</QuestionName>
 				<ButtonBox>
-					<Button styleColor={'primary'} onClick={() => setOpenModal((prev) => !prev)}>edit</Button>
-					{/* <Button onClick={() => deleteQuestion(data.id)}>x</Button> */}
+					<Button styleColor={'primary'} type='button' onClick={() => setOpenModal((prev) => !prev)}>edit</Button>
+					<Button type='button' onClick={() => removeQuestion(data.id)}>x</Button>
 				</ButtonBox>
 			</QuestionBox>
 			<Modal showModal={openModal} setShowModal={setOpenModal}>

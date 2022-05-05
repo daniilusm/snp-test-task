@@ -36,23 +36,23 @@ export function* createQuestion(data) {
 }
 
 export function* changeQuestion(data) {
-	yield call(editQuestion, data);
-	yield put(editQuestionById(data));
+	const result = yield call(editQuestion, data.data);
+	yield put(editQuestionById(result));
 }
 
 export function* removeQuestion(data) {
-	yield call(deleteQuestion, data.title);
-	yield put(deleteQuestionById(data));
+	yield call(deleteQuestion, data.id);
+	yield put(deleteQuestionById(data.id));
 }
 
 export function* createAnswer(data) {
-	yield call(sendAnswer, data.id);
-	yield put(setAnswer(data.id));
+	const result = yield call(sendAnswer, data.data);
+	yield put(setAnswer(result));
 }
 
 export function* changeAnswer(data) {
-	yield call(editAnswer, data.data);
-	yield put(editAnswernById(data.data));
+	const result = yield call(editAnswer, data.data);
+	yield put(editAnswernById(result));
 }
 
 export function* removeAnswer(data) {

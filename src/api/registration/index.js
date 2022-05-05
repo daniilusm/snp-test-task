@@ -21,7 +21,7 @@ export const userAuthorization = (user) => {
 		.post(`${URL}/signin`, user)
 		.then((response) => {
 			console.log(response.data.username, ' successfully authorized!');
-			console.log('Autorized token is ', response.data.auth_token);
+			console.log(response.data);
 			localStorage.setItem('auth_user', JSON.stringify(response.data));
 		})
 		.catch((error) => {
@@ -48,7 +48,7 @@ export const userLogout = () => {
 	axios
 		.delete(`${URL}/logout`)
 		.then((response) => {
-			console.log(response);
+			console.log('User logout', response);
 			localStorage.removeItem('auth_user');
 		})
 		.catch((error) => {

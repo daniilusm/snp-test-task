@@ -11,8 +11,9 @@ import QuestionForm from '../../components/question-form';
 import InputText from '../../components/input-text';
 
 import { deleteTest, getTest, editTest } from '../../store/actions/tests';
+import { createQuestion, deleteQuestion } from '../../store/actions/questions';
 
-import { Container, ButtonBox, ListBox } from '../../styles/GlobalStyles';
+import { Container, ButtonBox, ListBox, Heading } from '../../styles/GlobalStyles';
 import { EditTestForm } from './style';
 
 export const WorkOnTestPage = () => {
@@ -39,7 +40,7 @@ export const WorkOnTestPage = () => {
 
 	useEffect(() => {
 		dispatch(getTest(id));
-		console.log('test', test);
+		console.log('test', test, 'questions', questions);
 	},[questions]);
 
 	const { register, handleSubmit } = useForm();
@@ -49,28 +50,36 @@ export const WorkOnTestPage = () => {
 		goToTestsList();
 	};
 
+	const createQuest = () => {
+		const defaultData = {
+			answer: 0,
+			question_type: questionType,
+			title: 'New question'
+		};
+		dispatch(createQuestion(defaultData, id));
+		setOpenModal((prev) => !prev);
+	};
+
 	const saveTest = (data) => {
 		data.id = id;
-		console.log('edit test',data);
 		dispatch(editTest(data));
 		goToTestsList();
 	};
 
-	// const deleteQuestion = (id) => {
-	// 	const find = questions.filter(item => item.id !== id);
-	// 	setQuestions(find);
-	// };
+	const removeQuestion = (id) => {
+		dispatch(deleteQuestion(id));
+	};
 
 	return (
 		<>
-			<Container style={{ backgroundColor: '#FAF4E8', padding: '20px' }}>
-				<h1>{test.title}</h1>
+			<Container style={{ backgroundColor: '#FAF4E8', padding: '20px', marginBottom: '20px' }}>
+				<Heading>{test.title}</Heading>
 				<EditTestForm onSubmit={handleSubmit(saveTest)}>
 					<InputText register={register} name={'title'} label={'Name test'} type={'text'} />
 					<ListBox>
 						{test.questions ? test.questions.map(quest => (
 							<QuestionItem 
-								// deleteQuestion={deleteQuestion} 
+								removeQuestion={removeQuestion} 
 								data={quest} key={quest.id} 
 							/>
 						)) : <h1>not questions</h1>}
@@ -81,7 +90,7 @@ export const WorkOnTestPage = () => {
 						gap: '20px'
 					}}>
 						<SelectItems setQuestionType={setQuestionType} name="answer-type" options={['single', 'multiple', 'number']} />
-						<Button styleColor={'primary'} type="button" onClick={() => setOpenModal((prev) => !prev)}>add new question</Button>
+						<Button styleColor={'primary'} type="button" onClick={() => createQuest()}>add new question</Button>
 					</div>
 					<ButtonBox>
 						<Button styleColor={'primary'} type={'submit'}>Save</Button>
@@ -89,7 +98,7 @@ export const WorkOnTestPage = () => {
 					</ButtonBox>
 				</EditTestForm>
 				<Modal showModal={openModal} setShowModal={setOpenModal}>
-					<QuestionForm testId={id} questionType={questionType} setShowModal={setOpenModal}/>
+					<QuestionForm questionType={questionType} setShowModal={setOpenModal}/>
 				</Modal>
 			</Container>
 		</>
