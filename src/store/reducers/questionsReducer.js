@@ -33,7 +33,11 @@ export function questions(state = initialState, action) {
 	case DELETE_ANSWER_BY_ID:
 		return { ...state, answers: state.answers.filter(item => item.id !== action.id) };
 	case MOVING_ANSWER_BY_ID:
-		return { ...state, answers: state.answers.filter(item => item.id !== action.id) };
+		const { answer, positionEnd, positionStart } = action;
+		const copyAnswers = [...state.answers];
+		copyAnswers.splice(positionStart, 1);
+		copyAnswers.splice(positionEnd, 0, answer);
+		return { ...state, answers: copyAnswers };
 	case CLEAR_ANSWERS:
 		return { ...state, answers:  [] };
 

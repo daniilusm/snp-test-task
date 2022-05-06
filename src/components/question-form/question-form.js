@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,20 +15,24 @@ import {
 	editQuestion, 
 	deleteAnswer, 
 	editAnswer, 
-	clearAnswers
+	clearAnswers,
+	movingAnswer
 } from '../../store/actions/questions';
 
 import { 
-	QuestionFormBox, 
-	AnswerItem, 
+	QuestionFormBox,  
 	AnswerInput, 
-	AnswersBlock 
+	AnswersBlock,
+	DraggAndDropItem
 } from './style';
 import { ButtonBox, ListBox } from '../../styles/GlobalStyles';
 
 export const QuestionForm = ({ setShowModal, questionType }) => {
 
 	const dispatch = useDispatch();
+
+	const dragItem = useRef();
+	const dragOverItem = useRef();
 
 	const [valueInput, setValueInput] = useState('');
 
@@ -118,6 +122,18 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 		dispatch(deleteAnswer(id));
 	};
 
+	const dragStart = (e, position) => {
+		dragItem.current = position;
+	};
+
+	const dragEnter = (e, position) => {
+		dragOverItem.current = position;
+	};
+
+	const dropItem = (answer) => {
+		dispatch(movingAnswer(answer, dragItem.current, dragOverItem.current));
+	};
+
 	return(
 		<QuestionFormBox onSubmit={handleSubmit(onSubmit)}>
 			<InputText register={register} name={'title'} label={'Question'} id={'title'} />
@@ -129,14 +145,21 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 			<AnswersBlock>
 				<h3>Answers:</h3>
 				<ListBox name={'answers'}>
-					{answers ? answers.map((answer, index) => (
-						<AnswerItem key={index}>
+					{answers.length > 0 ? answers.map((answer, index) => (
+						<DraggAndDropItem
+							key={answer.id}
+							onDragStart={(e) => dragStart(e, index)} 
+							onDragEnter={(e) => dragEnter(e, index)} 
+							onDragEnd={() => dropItem(answer)} 
+							onDragOver={(e) => e.preventDefault()} 
+							draggable 
+						>
 							<Checkbox
 								label={`${answer.text}`}
 								onChange={(event) => choosRightAnswer(event, answer)}
 							/>
 							<Button type='button' onClick={() => removeAnswer(answer.id)}>x</Button>
-						</AnswerItem>
+						</DraggAndDropItem>
 					)) : <h3>Answers not found</h3>}
 				</ListBox>
 			</AnswersBlock>

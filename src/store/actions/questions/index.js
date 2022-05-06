@@ -106,17 +106,23 @@ export function deleteAnswerById(id) {
 	};
 }
 
-export function movingAnswer(title) {
+export function movingAnswer(answer, positionStart, positionEnd) {
 	return {
 		type: MOVING_ANSWER,
-		title
+		data: {
+			answer,
+			positionStart,
+			positionEnd
+		}
 	};
 }
 
-export function movingAnswerById(data) {
+export function movingAnswerById({answer, positionStart, positionEnd}) {
 	return {
 		type: MOVING_ANSWER_BY_ID,
-		data,
+		answer,
+		positionStart,
+		positionEnd
 	};
 }
 

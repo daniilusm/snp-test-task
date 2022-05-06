@@ -95,9 +95,9 @@ export const deleteAnswer = (id) => {
 		});
 };
 
-export const movingAnswer = async (data) => {
-	axios
-		.patch(`${URL}/answers/${data.id}/insert_at/:position`, data, {
+export const movingAnswer = async ({answer, positionEnd}) => {
+	await axios
+		.patch(`${URL}/answers/${answer.id}/insert_at/${positionEnd}`,answer, {
 			headers:{
 				Token: `${getAuthUser()}`
 			}
