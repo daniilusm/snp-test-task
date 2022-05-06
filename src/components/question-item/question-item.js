@@ -35,8 +35,8 @@ export const QuestionItem = ({ data, removeQuestion }) => {
 				<ConfirmBox>
 					<Heading>Delete question?</Heading>
 					<ButtonBox>
-						<Button type='button' onClick={() => removeQuestion(data.id)}>yes</Button>
-						<Button type='button' onClick={() => setOpenModalСonfirm((prev) => !prev)}>no</Button>
+						<Button type='button' styleColor={'primary'} onClick={() => removeQuestion(data.id)}>yes</Button>
+						<Button type='button' styleColor={'primary'} onClick={() => setOpenModalСonfirm((prev) => !prev)}>no</Button>
 					</ButtonBox>
 				</ConfirmBox>
 			</Modal>

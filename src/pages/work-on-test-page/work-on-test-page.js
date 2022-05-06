@@ -107,8 +107,8 @@ export const WorkOnTestPage = () => {
 					<ConfirmBox>
 						<Heading>Delete test?</Heading>
 						<ButtonBox>
-							<Button type='button' onClick={() => removeTest(id)}>yes</Button>
-							<Button type='button' onClick={() => setOpenModalСonfirm((prev) => !prev)}>no</Button>
+							<Button type='button' styleColor={'primary'} onClick={() => removeTest(id)}>yes</Button>
+							<Button type='button' styleColor={'primary'} onClick={() => setOpenModalСonfirm((prev) => !prev)}>no</Button>
 						</ButtonBox>
 					</ConfirmBox>
 				</Modal>

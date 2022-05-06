@@ -32,6 +32,8 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 
 	const [valueInput, setValueInput] = useState('');
 
+	const [valid, setValid] = useState('');
+
 	const answers = useSelector((state) => state.questions.answers);
 
 	const question = useSelector((state) => state.questions.question);
@@ -46,35 +48,6 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 				.string()
 				.min(4, 'Question must be more than 4 characters')
 				.required('Question is a required field'),
-			// answer: yup
-			// 	.string()
-			// 	.min(4, 'Answer must be more than 4 characters')
-			// 	.required('Answer is a required field'),
-		})
-		.required();
-
-	const schemaNumber = yup
-		.object({
-			title: yup
-				.string()
-				.min(4, 'Question must be more than 4 characters')
-				.required('Question is a required field'),
-			// answer: yup
-			// 	.number()
-			// 	.required('Answer is a required field'),
-		})
-		.required();
-
-	const schemaMulty = yup
-		.object({
-			title: yup
-				.string()
-				.min(4, 'Question must be more than 4 characters')
-				.required('Question is a required field'),
-			// answer: yup
-			// 	.string()
-			// 	.min(4, 'Answer must be more than 4 characters')
-			// 	.required('Answer is a required field'),
 		})
 		.required();
 
@@ -83,14 +56,33 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 		formState: { errors },
 		handleSubmit,
 	} = useForm({
-		resolver: yupResolver(questionType === 'number' ? schemaNumber : questionType ==='single' ? schema : schemaMulty),
+		resolver: yupResolver(schema),
 		mode: 'onChange',
 	});
 
 	const onSubmit = (data) => {
+		const valid = validationByTypeQuest();
+		valid ? (workWithData(data)) : (setValid('No valid form'));
+	};
+
+	const validationByTypeQuest = () => {
+		let exam;
+		questionType === 'number' ? (
+			// выполняем проверку number
+			exam = answers.length !== 0 && answers.filter(answ => answ.is_right === true).length > 1
+		) : questionType === 'single' ? (
+			// выполняем проверку single
+			exam = answers.length > 2 && answers.filter(answ => answ.is_right === true).length === 1
+		) : (
+			// выполняем проверку multiply
+			exam = answers.length > 2 && answers.filter(answ => answ.is_right === true).length > 1
+		) ;
+		return exam;
+	};
+
+	const workWithData = (data) => {
 		data.question_type = questionType;
 		data.answer = answers.length;
-		console.log('onSubmit', data, ' in quest ', question);
 		dispatch(editQuestion(data, question.id));
 		dispatch(clearAnswers());
 		setShowModal(false);
@@ -148,6 +140,7 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 					)) : <h3>Answers not found</h3>}
 				</ListBox>
 			</AnswersBlock>
+			<h3 style={{color: 'red'}}>{valid}</h3>
 			<ButtonBox>
 				<Button type='submit' styleColor={'primary'}>save</Button>
 				<Button type='button' onClick={() => setShowModal(false)}>cancel</Button>
