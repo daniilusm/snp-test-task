@@ -19,7 +19,7 @@ export function tests(state = initialState, action) {
 	case SET_TEST:
 		return { ...state, test: action.data };
 	case SEND_TEST:
-		return { ...state, test: action.data, tests: [...state.tests, action.data] };
+		return { ...state, tests: [...state.tests, action.data] };
 	case DELETE_TEST_BY_ID:
 		return { ...state, users: state.tests.filter(item => item.id !== action.id) };
 	case EDIT_TEST_BY_ID:

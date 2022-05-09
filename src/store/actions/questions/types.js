@@ -20,3 +20,7 @@ export const MOVING_ANSWER = 'MOVING_ANSWER';
 export const MOVING_ANSWER_BY_ID = 'MOVING_ANSWER_BY_ID';
 
 export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';
+
+export const GET_QUESTION = 'GET_QUESTION';
+
+export const GET_ANSWERS = 'GET_ANSWERS';

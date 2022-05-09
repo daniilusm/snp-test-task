@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
 
 import Button from '../../components/button';
 import QuestionItem from '../../components/question-item';
 import SelectItems from '../../components/select-items';
 import Modal from '../../components/modal';
 import QuestionForm from '../../components/question-form';
-import InputText from '../../components/input-text';
 
 import { deleteTest, getTest, editTest } from '../../store/actions/tests';
 import { createQuestion, deleteQuestion } from '../../store/actions/questions';
 
 import { Container, ButtonBox, ListBox, Heading, ConfirmBox } from '../../styles/GlobalStyles';
 import { EditTestForm } from './style';
+import SearchInput from '../../components/search-input';
 
 export const WorkOnTestPage = () => {
 
@@ -30,10 +29,7 @@ export const WorkOnTestPage = () => {
 
 	const [questionType, setQuestionType] = useState('single');
 
-	useEffect(() => {
-		dispatch(getTest(id));
-		console.log('get test by id ',test);
-	},[]);
+	const [valueInput, setValueInput] = useState();
 
 	const test = useSelector((state) => state.tests.test);
 	
@@ -43,9 +39,16 @@ export const WorkOnTestPage = () => {
 
 	useEffect(() => {
 		dispatch(getTest(id));
-	},[questions]);
+	},[]);
+	
+	useEffect(() => {
+		setValueInput(test.title);
+	},[test]);
 
-	const { register, handleSubmit } = useForm();
+	useEffect(() => {
+		dispatch(getTest(id));
+		console.log('question is ', questions);
+	},[questions]);
 
 	const removeTest = (id) => {
 		dispatch(deleteTest(id));
@@ -62,8 +65,11 @@ export const WorkOnTestPage = () => {
 		setOpenModal((prev) => !prev);
 	};
 
-	const saveTest = (data) => {
-		data.id = id;
+	const saveTest = () => {
+		const data = {
+			title: valueInput,
+			id: id
+		};
 		dispatch(editTest(data));
 		goToTestsList();
 	};
@@ -77,8 +83,8 @@ export const WorkOnTestPage = () => {
 		<>
 			<Container style={{ backgroundColor: '#FAF4E8', padding: '20px', marginBottom: '20px' }}>
 				<Heading>{test.title}</Heading>
-				<EditTestForm onSubmit={handleSubmit(saveTest)}>
-					<InputText register={register} name={'title'} label={'Name test'} type={'text'} />
+				<EditTestForm >
+					<SearchInput value={valueInput} onChange={(event) => setValueInput(event.target.value)} label={'Name test'}/>
 					<ListBox>
 						{test.questions ? test.questions.map(quest => (
 							<QuestionItem 
@@ -96,7 +102,7 @@ export const WorkOnTestPage = () => {
 						<Button styleColor={'primary'} type="button" onClick={() => createQuest()}>add new question</Button>
 					</div>
 					<ButtonBox>
-						<Button styleColor={'primary'} type={'submit'}>Save</Button>
+						<Button styleColor={'primary'} onClick={() => saveTest()}>Save</Button>
 						<Button type='button' onClick={() => setOpenModalСonfirm((prev) => !prev)}>Delete</Button>
 					</ButtonBox>
 				</EditTestForm>

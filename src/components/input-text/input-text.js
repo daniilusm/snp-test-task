@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Label, Input } from './style';
 
-export const InputText = ({label, register, name, ...inputProps}) => {
+export const InputText = ({label, value, register, name, ...inputProps}) => {
+
+	const [valueInput, setValueInput] = useState(value ? value : '');
+
 	return(
 		<Label>{label}
-			<Input {...register(name)} {...inputProps} type='text'/>
+			<Input 
+				{...register(name)} 
+				value = {valueInput}
+				onChange = {(event) => setValueInput(event.target.value)}
+				type='text'
+				{...inputProps} 
+			/>
 		</Label>
 	);
 };

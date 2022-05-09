@@ -9,7 +9,7 @@ export const sendQuestion = async ({ data, id }) => {
 			}
 		})
 		.then((response) => {
-			console.log(response.data);
+			console.log(response.data, 'questions is created');
 			return response.data;
 		})
 		.catch((error) => {

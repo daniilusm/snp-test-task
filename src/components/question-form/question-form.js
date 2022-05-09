@@ -16,7 +16,9 @@ import {
 	deleteAnswer, 
 	editAnswer, 
 	clearAnswers,
-	movingAnswer
+	movingAnswer,
+	getAnswers,
+	getQuestion
 } from '../../store/actions/questions';
 
 import { 
@@ -27,7 +29,7 @@ import {
 } from './style';
 import { ButtonBox, ListBox } from '../../styles/GlobalStyles';
 
-export const QuestionForm = ({ setShowModal, questionType }) => {
+export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 
 	const dispatch = useDispatch();
 
@@ -38,13 +40,22 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 
 	const [valid, setValid] = useState('');
 
+	const [questType, setQuestType] = useState(questionType);
+
 	const answers = useSelector((state) => state.questions.answers);
 
 	const question = useSelector((state) => state.questions.question);
 
 	useEffect(() => {
-		console.log('question is ',question);
-	},[question]);
+		dataQuest ? setData(dataQuest) : null;
+	},[]);
+
+	const setData = (data) => {
+		console.log('set data quest', data);
+		dispatch(getQuestion(data));
+		dispatch(getAnswers(data.answers));
+		setQuestType(data.question_type);
+	};
 
 	const schema = yup
 		.object({
@@ -65,35 +76,31 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 	});
 
 	const onSubmit = (data) => {
-		const valid = validationByTypeQuest();
-		valid ? (workWithData(data)) : (setValid('No valid form'));
+		const validResult = validationByTypeQuest();
+		validResult ? (workWithData(data)) : (setValid('No valid form'));
 	};
 
 	const validationByTypeQuest = () => {
 		let exam;
-		questionType === 'number' ? (
+		questType === 'number' ? (
 			// выполняем проверку number
 			exam = answers.length !== 0 && answers.filter(answ => answ.is_right === true).length > 1
-		) : questionType === 'single' ? (
+		) : questType === 'single' ? (
 			// выполняем проверку single
-			exam = answers.length > 2 && answers.filter(answ => answ.is_right === true).length === 1
+			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length === 1
 		) : (
 			// выполняем проверку multiply
-			exam = answers.length > 2 && answers.filter(answ => answ.is_right === true).length > 1
+			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length > 1
 		) ;
 		return exam;
 	};
 
 	const workWithData = (data) => {
-		data.question_type = questionType;
+		data.question_type = questType;
 		data.answer = answers.length;
 		dispatch(editQuestion(data, question.id));
 		dispatch(clearAnswers());
 		setShowModal(false);
-	};
-
-	const changeInput = (event) => {
-		setValueInput(event.target.value);
 	};
 
 	const addAnswer = () => {
@@ -136,10 +143,10 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 
 	return(
 		<QuestionFormBox onSubmit={handleSubmit(onSubmit)}>
-			<InputText register={register} name={'title'} label={'Question'} id={'title'} />
-			<ErrorMessage>{errors.quest?.message}</ErrorMessage>
+			<InputText register={register} value={dataQuest.title} name={'title'} label={'Question'} />
+			<ErrorMessage>{errors.title?.message}</ErrorMessage>
 			<AnswerInput>
-				<SearchInput onChange={changeInput} label={'Answer'}/>
+				<SearchInput onChange={(event) => setValueInput(event.target.value)} label={'Answer'}/>
 				<Button styleColor={'primary'} type="button" onClick={addAnswer}>add answer</Button>
 			</AnswerInput>
 			<AnswersBlock>
@@ -157,6 +164,7 @@ export const QuestionForm = ({ setShowModal, questionType }) => {
 							<Checkbox
 								label={`${answer.text}`}
 								onChange={(event) => choosRightAnswer(event, answer)}
+								checked={answer.is_right}
 							/>
 							<Button type='button' onClick={() => removeAnswer(answer.id)}>x</Button>
 						</DraggAndDropItem>

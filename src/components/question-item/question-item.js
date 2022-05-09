@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '../button';
 import Modal from '../modal';
-// import QuestionForm from '../question-form';
+import QuestionForm from '../question-form';
 
 import { QuestionBox, QuestionName } from './style';
 import { ButtonBox, Heading, ConfirmBox } from '../../styles/GlobalStyles';
@@ -23,13 +23,7 @@ export const QuestionItem = ({ data, removeQuestion }) => {
 				</ButtonBox>
 			</QuestionBox>
 			<Modal showModal={openModal} setShowModal={setOpenModal}>
-				{/* <QuestionForm data={data}/> */}
-				<h1>{data.answer}</h1>
-				<ul >
-					{data.answers.map((answ, index) =>(
-						<li key={index}>{answ.text} - {answ.is_right.toString()}</li>
-					))}
-				</ul>
+				<QuestionForm dataQuest={data} setShowModal={setOpenModal}/>
 			</Modal>
 			<Modal showModal={openModalСonfirm} setShowModal={setOpenModalСonfirm}>
 				<ConfirmBox>

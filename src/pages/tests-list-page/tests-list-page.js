@@ -20,10 +20,6 @@ export const TestsListPage = () => {
 		dispatch({ type: GET_TESTS });
 	}, []);
 
-	useEffect(() => {
-		console.log('get all tests ',tests);
-	}, [tests]);
-
 	const createTest = () => {
 		dispatch(postTest('New test'));
 	};

@@ -7,7 +7,9 @@ import {
 	EDIT_ANSWER_BY_ID,
 	DELETE_ANSWER_BY_ID,
 	MOVING_ANSWER_BY_ID,
-	CLEAR_ANSWERS
+	CLEAR_ANSWERS,
+	GET_ANSWERS,
+	GET_QUESTION
 } from '../actions/questions/types';
 
 const initialState = {
@@ -40,6 +42,10 @@ export function questions(state = initialState, action) {
 		return { ...state, answers: copyAnswers };
 	case CLEAR_ANSWERS:
 		return { ...state, answers:  [] };
+	case GET_ANSWERS:
+		return { ...state, answers:  action.data };
+	case GET_QUESTION:
+		return { ...state, question: action.data };
 
 	default:
 		return state;
