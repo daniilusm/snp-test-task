@@ -98,7 +98,7 @@ export const WorkOnTestPage = () => {
 						justifyContent: 'center',
 						gap: '20px'
 					}}>
-						<SelectItems setQuestionType={setQuestionType} name="answer-type" options={['single', 'multiple', 'number']} />
+						<SelectItems setData={setQuestionType} name="answer-type" options={['single', 'multiple', 'number']} />
 						<Button styleColor={'primary'} type="button" onClick={() => createQuest()}>add new question</Button>
 					</div>
 					<ButtonBox>

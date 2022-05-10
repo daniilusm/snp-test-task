@@ -1,5 +1,7 @@
 export const GET_TESTS = 'GET_TESTS';
 export const SET_TESTS = 'SET_TESTS';
+export const SORT_TESTS = 'SORT_TESTS';
+export const SEARCH_TESTS = 'SEARCH_TESTS';
 
 export const GET_TEST = 'GET_TEST';
 export const SET_TEST = 'SET_TEST';

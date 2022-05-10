@@ -171,7 +171,7 @@ export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 					)) : <h3>Answers not found</h3>}
 				</ListBox>
 			</AnswersBlock>
-			<h3 style={{color: 'red'}}>{valid}</h3>
+			<ErrorMessage>{valid}</ErrorMessage>
 			<ButtonBox>
 				<Button type='submit' styleColor={'primary'}>save</Button>
 				<Button type='button' onClick={() => setShowModal(false)}>cancel</Button>

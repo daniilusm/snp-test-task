@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { URL, getAuthUser } from '../index';
 
-export const fetchTests = async () => {
-	return axios
+export const fetchAllTests = async () => {
+	return await axios
 		.get(`${URL}/tests`, {
 			headers:{
 				Token: `${getAuthUser()}`
@@ -10,6 +10,38 @@ export const fetchTests = async () => {
 		})
 		.then((response) => {
 			console.log('fetched all tests ', response.data.tests);
+			return response.data.tests;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const fetchSortedTests = async (value) => {
+	return await axios
+		.get(`${URL}/tests/?sort=${value}`, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
+		.then((response) => {
+			console.log('fetched sorted tests ', response.data.tests);
+			return response.data.tests;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
+
+export const fetchSearcedTests = async (value) => {
+	return await axios
+		.get(`${URL}/tests/?search=${value}`, {
+			headers:{
+				Token: `${getAuthUser()}`
+			}
+		})
+		.then((response) => {
+			console.log('fetched searched tests ', response.data.tests);
 			return response.data.tests;
 		})
 		.catch((error) => {

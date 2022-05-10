@@ -1,6 +1,8 @@
 import { 
 	GET_TESTS, 
 	SET_TESTS,
+	SORT_TESTS,
+	SEARCH_TESTS,
 	GET_TEST, 
 	SET_TEST,
 	POST_TEST,
@@ -14,6 +16,20 @@ import {
 export function getTests() {
 	return {
 		type: GET_TESTS,
+	};
+}
+
+export function sortTests(value) {
+	return {
+		type: SORT_TESTS,
+		value
+	};
+}
+
+export function searchTests(value) {
+	return {
+		type: SEARCH_TESTS,
+		value
 	};
 }
 
