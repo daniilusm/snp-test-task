@@ -47,7 +47,6 @@ export const WorkOnTestPage = () => {
 
 	useEffect(() => {
 		dispatch(getTest(id));
-		console.log('question is ', questions);
 	},[questions]);
 
 	const removeTest = (id) => {

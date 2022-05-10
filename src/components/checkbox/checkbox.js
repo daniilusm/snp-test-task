@@ -15,11 +15,11 @@ export const Checkbox = ({
 			{label}
 			<Input
 				id={id}
-				type="checkbox"
 				name={name}
 				value={value}
 				checked={checked}
 				onChange={onChange}
+				type="checkbox"
 			/>
 			<Indicator />
 		</Label>

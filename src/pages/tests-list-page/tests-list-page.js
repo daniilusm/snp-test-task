@@ -12,12 +12,12 @@ import { Container, EdgesBox, Heading, ListBox, SubHeading } from '../../styles/
 
 const values = [
 	{
-		name:'descending', 
-		value:'created_at_desc'
+		// text:'descending', 
+		text:'created_at_desc'
 	}, 
 	{
-		name:'ascending', 
-		value:'created_at_asc'
+		// text:'ascending', 
+		text:'created_at_asc'
 	}
 ];
 
@@ -74,7 +74,9 @@ export const TestsListPage = () => {
 			<ListBox>
 				{tests.length > 0 ? tests.map(test => (
 					<EdgesBox key={test.id}>
-						<SubHeading>{test.title}</SubHeading>
+						<Link to={`/test/${test.id}`}>
+							<SubHeading>{test.title}</SubHeading>
+						</Link>
 						<Link to={`/test/${test.id}/edit`}>
 							<Button styleColor={'primary'}>edit</Button>
 						</Link>

@@ -38,7 +38,9 @@ const App = () => {
 	return (
 		<>
 			<NavMenu>
-				<h1>{user.username}</h1>
+				<div>
+					<h1>{user.username} {user.is_admin ? <span style={{fontSize: '15px', color: '#f3b507'}}>admin</span> : <span style={{fontSize: '15px', color: '#ae07f3'}}>user</span>}</h1>
+				</div>
 				{user ? (
 					<Button onClick={() => setOpenModalСonfirm((prev) => !prev)}>Logout</Button>
 				): (

@@ -6,15 +6,15 @@ import {
 	RadioButtonLabel
 } from './style';
 
-export const RadioButton = ({chekedValue, value, values, ...props }) => {
+export const RadioButton = ({ chekedValue, value, values, ...props }) => {
 
 	return(
 		<Wrapper >
 			{values.map((val, index) => (
 				<Item key={index}>
-					<RadioButtonStyle value={`${val.value}`} checked={value === `${val.value}`} id={`${val.value}`} onChange={chekedValue}  type='radio' {...props}/>
+					<RadioButtonStyle value={`${val.text}`} checked={value === `${val.text}`} id={`${val.text}`} onChange={(chekedValue)} type='radio' {...props}/>
 					<RadioButtonLabel />
-					<p>{val.name}</p>
+					<p>{val.text}</p>
 				</Item>
 			))}
 		</Wrapper>
