@@ -84,13 +84,13 @@ export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 		let exam;
 		questType === 'number' ? (
 			// выполняем проверку number
-			exam = answers.length !== 0 && answers.filter(answ => answ.is_right === true).length > 1
+			exam = answers.length === 1 && answers.filter(answ => answ.is_right === true).length === 1
 		) : questType === 'single' ? (
 			// выполняем проверку single
 			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length === 1
 		) : (
 			// выполняем проверку multiply
-			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length > 1
+			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length >= 1
 		) ;
 		return exam;
 	};
@@ -143,7 +143,7 @@ export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 
 	return(
 		<QuestionFormBox onSubmit={handleSubmit(onSubmit)}>
-			<InputText register={register} value={dataQuest.title} name={'title'} label={'Question'} />
+			<InputText register={register} value={dataQuest ? dataQuest.title : ''} name={'title'} label={'Question'} />
 			<ErrorMessage>{errors.title?.message}</ErrorMessage>
 			<AnswerInput>
 				<SearchInput onChange={(event) => setValueInput(event.target.value)} label={'Answer'}/>
@@ -171,7 +171,7 @@ export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 					)) : <h3>Answers not found</h3>}
 				</ListBox>
 			</AnswersBlock>
-			<h3 style={{color: 'red'}}>{valid}</h3>
+			<ErrorMessage>{valid}</ErrorMessage>
 			<ButtonBox>
 				<Button type='submit' styleColor={'primary'}>save</Button>
 				<Button type='button' onClick={() => setShowModal(false)}>cancel</Button>

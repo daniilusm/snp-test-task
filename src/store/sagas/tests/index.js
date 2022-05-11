@@ -5,13 +5,17 @@ import {
 	POST_TEST,
 	DELETE_TEST,
 	GET_TEST,
-	EDIT_TEST
+	EDIT_TEST,
+	SORT_TESTS,
+	SEARCH_TESTS
 } from '../../actions/tests/types';
 
 import {
 	deleteTest,
 	fetchTestById,
-	fetchTests,
+	fetchAllTests,
+	fetchSortedTests,
+	fetchSearcedTests,
 	sendTest,
 	editTest
 } from '../../../api/tests';
@@ -25,8 +29,18 @@ import {
 } from '../../actions/tests';
 
 export function* getTests() {
-	const data = yield call(fetchTests, null);
-	yield put(setTests(data));
+	const result = yield call(fetchAllTests, '');
+	yield put(setTests(result));
+}
+
+export function* getSortedTests(data) {
+	const result = yield call(fetchSortedTests, data.value);
+	yield put(setTests(result));
+}
+
+export function* getSearchTests(data) {
+	const result = yield call(fetchSearcedTests, data.value);
+	yield put(setTests(result));
 }
 
 export function* getTest(data) {
@@ -53,6 +67,14 @@ export function* getTestsSaga(){
 	yield takeEvery(GET_TESTS, getTests);	
 }
 
+export function* sortTestsSaga(){
+	yield takeEvery(SORT_TESTS, getSortedTests);	
+}
+
+export function* searchTestsSaga(){
+	yield takeEvery(SEARCH_TESTS, getSearchTests);	
+}
+
 export function* getTestSaga(){
 	yield takeEvery(GET_TEST, getTest);	
 }
@@ -72,6 +94,8 @@ export function* editTestSaga(){
 export default function* rootTestsSaga(){
 	yield spawn(postTestSaga);
 	yield spawn(getTestsSaga);
+	yield spawn(sortTestsSaga);
+	yield spawn(searchTestsSaga);
 	yield spawn(getTestSaga);
 	yield spawn(deleteTestsSaga);
 	yield spawn(editTestSaga);
