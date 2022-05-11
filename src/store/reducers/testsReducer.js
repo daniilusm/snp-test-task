@@ -9,7 +9,12 @@ import {
 
 const initialState = {
 	tests: [],
-	test: {}
+	test: {
+		created_at: '',
+		id: 0,
+		questions: [],
+		title: ''
+	}
 };
 
 export function tests(state = initialState, action) {

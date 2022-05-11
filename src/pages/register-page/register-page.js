@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { registrUser } from '../../store/actions/user';
 
@@ -22,7 +23,11 @@ export const RegisterPage = () => {
 
 	const dispatch = useDispatch();
 
-	const [value, setCheckbox] = useState(true);
+	const [value, setCheckbox] = useState(false);
+
+	const navigate = useNavigate();
+
+	const goToLoginPage = useCallback(() => navigate('/login'));
 
 	const schema = yup
 		.object({
@@ -52,6 +57,7 @@ export const RegisterPage = () => {
 	const onSubmit = (data) => {
 		data.is_admin = value;
 		dispatch(registrUser(data));
+		goToLoginPage();
 		reset();
 	};
 	
@@ -68,7 +74,7 @@ export const RegisterPage = () => {
 					<ErrorMessage>{errors.password?.message}</ErrorMessage>
 				</BoxItem>
 				<BoxItem>
-					<InputText register={register} name={'password_confirmation'} label={'Password Confirmation'} id={'password_confirmation'} type={'text'} />
+					<InputText register={register} name={'password_confirmation'} label={'Confirm Password'} id={'password_confirmation'} type={'text'} />
 					<ErrorMessage>{errors.password_confirmation?.message}</ErrorMessage>
 				</BoxItem>
 				<Checkbox
@@ -77,7 +83,7 @@ export const RegisterPage = () => {
 					checked={value}
 					onChange={() => setCheckbox(!value)}
 				/>
-				<Button styleColor={'primary'} type={'submit'}>Enter</Button>
+				<Button styleColor={'primary'} type='submit'>Enter</Button>
 			</FormBox>
 		</LoginBox>
 	);

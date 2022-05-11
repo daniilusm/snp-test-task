@@ -84,7 +84,7 @@ export const QuestionForm = ({ setShowModal, questionType, dataQuest }) => {
 		let exam;
 		questType === 'number' ? (
 			// выполняем проверку number
-			exam = answers.length !== 0 && answers.filter(answ => answ.is_right === true).length >= 1
+			exam = answers.length === 1 && answers.filter(answ => answ.is_right === true).length === 1
 		) : questType === 'single' ? (
 			// выполняем проверку single
 			exam = answers.length >= 2 && answers.filter(answ => answ.is_right === true).length === 1
